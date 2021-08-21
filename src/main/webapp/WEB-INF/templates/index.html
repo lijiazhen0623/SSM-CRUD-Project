@@ -185,6 +185,8 @@
 </div>
 
 <script type="text/javascript">
+    //动态获取项目地址当前为/SSM_war/
+    var path = window.document.location.pathname;
     //保存总页数用来跳转到最后一页
     var allPage;
     //保存当前页
@@ -199,7 +201,7 @@
     //ajax
     function ajax(pn) {
         $.ajax({
-            url: "/SSM_war/emp",
+            url: path +"emp",
             data: "pn=" + pn,
             type: "get",
             dataType: "json",
@@ -365,7 +367,7 @@
         $("#department").empty();
 
         $.ajax({
-            url: "/SSM_war/dep",
+            url: path+"dep",
             type: "get",
             success: function (depMes) {
                 //遍历departments信息
@@ -390,7 +392,7 @@
             //(index):301 name=%E6%9D%8E%E5%AE%B6%E9%9C%87&email=445960228%40qq.com&gender=m&dId=6
             // console.log($("#myAddEmpModal form").serialize());
             $.ajax({
-                url: "/SSM_war/emp",
+                url: path+"emp",
                 type: "post",
                 data: $("#myAddEmpModal form").serialize(),
                 success: function (mes) {
@@ -426,7 +428,7 @@
         //进行内容校验
         //先发到服务器查询该用户名可用
         $.ajax({
-            url: "/SSM_war/queryName",
+            url: path+"queryName",
             type: "get",
             data: "name=" + $("#inputName").val(),
             dataType: "json",
@@ -501,7 +503,7 @@
         $("#department_update").empty();
         //添加部门信息
         $.ajax({
-            url: "/SSM_war/dep",
+            url: path+"dep",
             type: "get",
             success: function (depMes) {
                 //遍历departments信息
@@ -517,7 +519,7 @@
         });
         //通过Id查询用户信息
         $.ajax({
-            url: "/SSM_war/emp/" + $(this).attr("empId"),
+            url: path+"emp/" + $(this).attr("empId"),
             type: "GET",
             dataType: "json",
             success: function (mes) {
@@ -546,7 +548,7 @@
         }
         if (confirm("你将修改" + $("#inputName_static").text() + "")) {
             $.ajax({
-                url: "/SSM_war/emp/" + $("#updateEmpButton").attr("empId"),
+                url: path+"emp/" + $("#updateEmpButton").attr("empId"),
                 //可以发送PUT、Delete等请求，但除了GET和POST请求服务不用另外配置外，
                 // 其他都需要重新配置，详情请看相应的后端控制器注释
                 //或者可以用HiddenHttpMethodFilter过滤器的方法，来发送请求
@@ -573,7 +575,7 @@
         let tr = $(this).parent().parent();
         if (confirm("你将要删除: " + $(tr).find("td").eq(2).text())) {
             $.ajax({
-                url: "/SSM_war/emp/" + $(this).attr("empId"),
+                url: path+"emp/" + $(this).attr("empId"),
                 type: "DELETE",
                 dataType: "json",
                 success: function (mes) {
@@ -601,7 +603,7 @@
         if (empIds.length != 0) {
             if (confirm("将要删除：" + empNames.substring(0, empNames.length - 1))) {
                 $.ajax({
-                    url: "/SSM_war/emp/" + empIds,
+                    url: path+"emp/" + empIds,
                     type: "DELETE",
                     success: function (mes) {
                         alert("删除成功");
